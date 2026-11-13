@@ -1,0 +1,35 @@
+name: Refresh Threads token
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 1"   # ogni lunedi' alle 05:17 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Rinnova il token e aggiorna il secret
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          RESPONSE=$(curl -sS -G "https://graph.threads.net/refresh_access_token" \
+            --data-urlencode "grant_type=th_refresh_token" \
+            --data-urlencode "access_token=${THREADS_ACCESS_TOKEN}")
+          NEW=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          if [ -z "$NEW" ]; then
+            echo "Rinnovo fallito:"
+            echo "$RESPONSE" | jq 'del(.access_token)'
+            exit 1
+          fi
+          echo "::add-mask::$NEW"
+          DAYS=$(echo "$RESPONSE" | jq -r '(.expires_in // 0) / 86400 | floor')
+          gh secret set THREADS_ACCESS_TOKEN --repo "$REPO" --body "$NEW"
+          echo "Token rinnovato: valido per altri ${DAYS} giorni."

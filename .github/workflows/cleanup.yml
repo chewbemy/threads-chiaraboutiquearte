@@ -1,0 +1,33 @@
+name: Pulizia vecchi post (manuale)
+
+on:
+  workflow_dispatch:
+    inputs:
+      conferma:
+        description: "Scrivi CANCELLA per cancellare davvero (vuoto = solo elenco)"
+        type: string
+        default: ""
+      risposte:
+        description: "Cancella anche le mie risposte sotto i post di altri"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Elenca o cancella
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          CONFIRM: ${{ inputs.conferma }}
+          INCLUDE_REPLIES: ${{ inputs.risposte && '1' || '' }}
+        run: python cleanup.py

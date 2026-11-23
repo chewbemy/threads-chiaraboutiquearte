@@ -1,5 +1,5 @@
 {
-  "counter": 4,
+  "counter": 5,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -39,6 +39,16 @@
       "product": null,
       "community": "meditation",
       "thread_id": "17993914514867159",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-23T22:01:20+00:00",
+      "text": "Myth: scripting only works if you write it perfectly, in the right words, at the right hour.\n\nTruth: it's just a rehearsal. Write one ordinary scene as if it already happened. Where you are, what you hear, how your shoulders feel.\n\nThree real details beat ten pages of big claims. Keep it short, keep it believable to you. ✨💜",
+      "pillar": "scripting",
+      "format": "myth",
+      "product": null,
+      "community": null,
+      "thread_id": "18130870741920402",
       "reply_id": null
     }
   ],

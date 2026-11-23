@@ -1,1 +1,23 @@
-{"counter": 0, "posts": []}
+{
+  "counter": 1,
+  "posts": [
+    {
+      "date": "2026-11-23T12:28:38+00:00",
+      "text": "A two-minute reset you can do at any sink.\n\nTurn on the tap. Let your hands rest under the water and notice the temperature.\n\nFollow the sound of it for three slow breaths.\n\nThen dry your hands one finger at a time. Slowly.\n\nNothing to fix. You just arrive back in your body. 💫",
+      "pillar": "mindfulness",
+      "format": "micro_practice",
+      "product": null,
+      "community": null,
+      "thread_id": "17996500671027983",
+      "reply_id": null
+    }
+  ],
+  "ghosts": [
+    {
+      "date": "2026-11-23T12:28:26+00:00",
+      "text": "What's one small thing you're quietly hoping for right now? You don't have to explain it. Just name it. 💫",
+      "thread_id": "18658262842031025"
+    }
+  ],
+  "started": "2026-11-23"
+}

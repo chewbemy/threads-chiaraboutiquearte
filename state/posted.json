@@ -1,5 +1,5 @@
 {
-  "counter": 8,
+  "counter": 9,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -79,6 +79,16 @@
       "product": null,
       "community": "assumption",
       "thread_id": "18116999342160030",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-24T16:31:03+00:00",
+      "text": "Shadow work can start with one small trigger.\n\nThink of the last time something someone said stung more than it should have. Write this:\n\nWhat part of me felt threatened in that moment, and what did it need from me?\n\nAnswer like you're talking to a scared friend, not a suspect. 💜🔮",
+      "pillar": "shadow",
+      "format": "prompt",
+      "product": null,
+      "community": null,
+      "thread_id": "17867023554695542",
       "reply_id": null
     }
   ],

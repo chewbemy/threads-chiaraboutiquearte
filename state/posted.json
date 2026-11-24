@@ -1,5 +1,5 @@
 {
-  "counter": 11,
+  "counter": 12,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -109,6 +109,16 @@
       "product": null,
       "community": null,
       "thread_id": "18126032233942413",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-24T21:01:15+00:00",
+      "text": "Myth: mindfulness means clearing your mind until it's quiet.\n\nTruth: your mind will keep talking. That's fine. The practice is noticing where your feet are, then coming back to them.\n\nNext time you wait for a kettle or a red light, press your heels into the floor. Feel the weight. When thoughts drift, return to your heels. That's the whole thing. ⭐",
+      "pillar": "mindfulness",
+      "format": "myth",
+      "product": null,
+      "community": "mindfulness",
+      "thread_id": "17965569528000570",
       "reply_id": null
     }
   ],

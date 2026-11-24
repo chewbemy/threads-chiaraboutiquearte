@@ -1,5 +1,5 @@
 {
-  "counter": 12,
+  "counter": 13,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -119,6 +119,16 @@
       "product": null,
       "community": "mindfulness",
       "thread_id": "17965569528000570",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-24T22:31:02+00:00",
+      "text": "Try this tonight, in the last minute before sleep.\n\nPlace one hand on your chest. Say quietly to yourself what you'd say to a tired friend: \"You did enough today. You can stop now.\"\n\nNotice if part of you argues. That's okay. Say it once more, slowly, and let the pillow hold the rest. ⭐",
+      "pillar": "gratitude",
+      "format": "tonight",
+      "product": null,
+      "community": null,
+      "thread_id": "18118069229155569",
       "reply_id": null
     }
   ],

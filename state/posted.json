@@ -1,5 +1,5 @@
 {
-  "counter": 6,
+  "counter": 7,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -60,6 +60,16 @@
       "community": "manifestation",
       "thread_id": "18084086762357222",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-24T13:31:19+00:00",
+      "text": "Most of us replay the day's worst moments without even deciding to. Our minds are very good at rehearsing what went wrong.\n\nSo what if tonight you replayed one scene and let it end the way you wished it had? Same room, same people, just a kinder ending, felt for thirty seconds.\n\nWhat would you change in today's story? 🔮",
+      "pillar": "assumption",
+      "format": "question",
+      "product": null,
+      "community": null,
+      "thread_id": "17909073723355465",
+      "reply_id": null
     }
   ],
   "ghosts": [
@@ -67,6 +77,11 @@
       "date": "2026-11-23T12:28:26+00:00",
       "text": "What's one small thing you're quietly hoping for right now? You don't have to explain it. Just name it. 💫",
       "thread_id": "18658262842031025"
+    },
+    {
+      "date": "2026-11-24T13:31:06+00:00",
+      "text": "🔮 When did your gut last know something before your mind caught up? What was it about? One line is enough.",
+      "thread_id": "18142342798748048"
     }
   ],
   "started": "2026-11-23"

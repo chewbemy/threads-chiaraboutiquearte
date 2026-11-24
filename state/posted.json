@@ -1,5 +1,5 @@
 {
-  "counter": 9,
+  "counter": 10,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -89,6 +89,16 @@
       "product": null,
       "community": null,
       "thread_id": "17867023554695542",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-24T18:01:21+00:00",
+      "text": "You don't need candles, crystals or perfect timing for a moon ritual. 🌟\n\nAt a new moon, write one sentence: what I'd like to make room for.\n\nAt a full moon, write one more: what I'm ready to put down.\n\nTwo sentences, a few minutes of quiet. The pause is the ritual. 💜",
+      "pillar": "moon",
+      "format": "reframe",
+      "product": null,
+      "community": "astrology",
+      "thread_id": "17915221473659555",
       "reply_id": null
     }
   ],

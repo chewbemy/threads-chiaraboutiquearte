@@ -1,5 +1,5 @@
 {
-  "counter": 7,
+  "counter": 8,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -69,6 +69,16 @@
       "product": null,
       "community": null,
       "thread_id": "17909073723355465",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-24T15:01:19+00:00",
+      "text": "A two-minute practice for tonight, in bed with the light off.\n\n1. Pick one small scene from tomorrow. Brushing your teeth, a walk, a cup of tea.\n\n2. Play it as the person you want to be. Feel your feet, hear the room, notice how calm your face is.\n\n3. Whisper one plain sentence: \"Yes, this is me.\"\n\nThen sleep. 🌟💜",
+      "pillar": "assumption",
+      "format": "micro_practice",
+      "product": null,
+      "community": "assumption",
+      "thread_id": "18116999342160030",
       "reply_id": null
     }
   ],

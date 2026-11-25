@@ -1,5 +1,5 @@
 {
-  "counter": 19,
+  "counter": 20,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -189,6 +189,16 @@
       "product": null,
       "community": null,
       "thread_id": "18124350292948335",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-25T19:31:10+00:00",
+      "text": "Try this tonight, before you sleep.\n\nStep to a window or the door. Look toward the sky for one minute. Clouds or clear, it doesn't matter. ✨\n\nBreathe out slowly and name one thing you're ready to set down for the night. Then choose one word you'd like to carry into tomorrow.\n\nOne thing released, one thing welcomed. That's a whole moon ritual in a minute. 💜",
+      "pillar": "moon",
+      "format": "tonight",
+      "product": null,
+      "community": "astrology",
+      "thread_id": "18132818944896677",
       "reply_id": null
     }
   ],

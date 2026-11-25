@@ -1,5 +1,5 @@
 {
-  "counter": 14,
+  "counter": 15,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -140,6 +140,16 @@
       "community": "meditation",
       "thread_id": "18109005956367899",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-25T13:01:25+00:00",
+      "text": "A two-minute journal practice for the end of a day.\n\n1. Open to a blank line. Write the date or just \"Today.\"\n\n2. Finish this sentence once: \"Something small I want to keep from today is...\"\n\n3. Add one detail, like a color, a sound or a word someone said.\n\nClose the notebook. One kept moment is enough. 🔮✨",
+      "pillar": "journaling",
+      "format": "micro_practice",
+      "product": "journal2027",
+      "community": null,
+      "thread_id": "18002035266041670",
+      "reply_id": "18114792128265324"
     }
   ],
   "ghosts": [

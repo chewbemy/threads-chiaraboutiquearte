@@ -1,5 +1,5 @@
 {
-  "counter": 18,
+  "counter": 19,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -180,6 +180,16 @@
       "community": "assumption",
       "thread_id": "17942223717402161",
       "reply_id": "18100177703126183"
+    },
+    {
+      "date": "2026-11-25T18:01:27+00:00",
+      "text": "Myth: shadow work means fighting your inner critic until it goes quiet.\n\nTruth: the critic is often a nervous guard doing an old job. Try asking it, \"What are you afraid will happen if I relax?\" Write the first answer you hear, even if it sounds small or silly.\n\nYou don't have to obey it. Just listen once, the way you'd listen to a worried neighbor. 💫",
+      "pillar": "shadow",
+      "format": "myth",
+      "product": null,
+      "community": null,
+      "thread_id": "18124350292948335",
+      "reply_id": null
     }
   ],
   "ghosts": [

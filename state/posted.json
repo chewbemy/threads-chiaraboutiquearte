@@ -1,5 +1,5 @@
 {
-  "counter": 21,
+  "counter": 22,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -210,6 +210,16 @@
       "community": null,
       "thread_id": "17942139366407628",
       "reply_id": "17923782231461159"
+    },
+    {
+      "date": "2026-11-25T21:31:15+00:00",
+      "text": "A one-minute practice for the doorway.\n\n1. Before you walk into a new room, stop at the threshold. Rest one hand on the frame.\n\n2. Take one slow breath out. Feel the wood or the metal under your palm.\n\n3. Step through when you're ready, not before.\n\nYou carry less of the last room into the next one. 🌟",
+      "pillar": "mindfulness",
+      "format": "micro_practice",
+      "product": null,
+      "community": "mindfulness",
+      "thread_id": "18448952287131111",
+      "reply_id": null
     }
   ],
   "ghosts": [

@@ -1,5 +1,5 @@
 {
-  "counter": 22,
+  "counter": 23,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -219,6 +219,16 @@
       "product": null,
       "community": "mindfulness",
       "thread_id": "18448952287131111",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-25T22:31:06+00:00",
+      "text": "A sign can be a mirror, not a verdict.\n\nPick the element you feel closest to: fire, earth, air or water. Then write:\n\nWhen I'm at my best, how does that element show up in me? And when I'm worn out, what does it look like when it's too much or too little?\n\nAnswer with one real moment for each. 💫",
+      "pillar": "astrology",
+      "format": "prompt",
+      "product": null,
+      "community": null,
+      "thread_id": "18060744668804085",
       "reply_id": null
     }
   ],

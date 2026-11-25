@@ -230,7 +230,7 @@ def call_claude(system, user):
         },
         json={
             "model": model,
-            "max_tokens": 600,
+            "max_tokens": 1500,
             "system": system,
             "messages": [{"role": "user", "content": user}],
         },
@@ -239,13 +239,15 @@ def call_claude(system, user):
     if resp.status_code != 200:
         raise RuntimeError(f"Claude API error {resp.status_code}: {resp.text[:500]}")
     data = resp.json()
+    if data.get("stop_reason") not in (None, "end_turn"):
+        log(f"model stop_reason: {data.get('stop_reason')}")
     return "".join(b.get("text", "") for b in data["content"] if b.get("type") == "text")
 
 
 def parse_json(raw):
     start, end = raw.find("{"), raw.rfind("}")
     if start == -1 or end == -1:
-        raise ValueError("no JSON object in model output")
+        raise ValueError(f"no JSON object in model output: {raw[:200]!r}")
     return json.loads(raw[start : end + 1])
 
 
@@ -282,7 +284,7 @@ def generate(pillar, fmt, product, state):
     system, user = build_prompt(pillar, fmt, product, recent_texts)
     problem = None
     for attempt in range(1, 4):
-        prompt = user if not problem else f"{user}\n\nYour previous attempt was rejected: {problem}. Fix it."
+        prompt = user if not problem else f"{user}\n\nYour previous attempt was rejected: {problem}. Fix it. Reply with ONLY the JSON object, no other text."
         try:
             out = parse_json(call_claude(system, prompt))
         except (ValueError, json.JSONDecodeError) as exc:
@@ -322,7 +324,7 @@ def generate_ghost(state):
         user += "\n\nRecent questions, do not repeat their ideas:\n- " + "\n- ".join(recent)
     problem = None
     for attempt in range(1, 4):
-        prompt = user if not problem else f"{user}\n\nYour previous attempt was rejected: {problem}. Fix it."
+        prompt = user if not problem else f"{user}\n\nYour previous attempt was rejected: {problem}. Fix it. Reply with ONLY the JSON object, no other text."
         try:
             text = (parse_json(call_claude(system, prompt)).get("post") or "").strip()
         except (ValueError, json.JSONDecodeError) as exc:

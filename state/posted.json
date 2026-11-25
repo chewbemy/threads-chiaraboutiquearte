@@ -1,5 +1,5 @@
 {
-  "counter": 17,
+  "counter": 18,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -170,6 +170,16 @@
       "community": null,
       "thread_id": "17933317662424625",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-25T16:31:10+00:00",
+      "text": "Today I caught myself saying, \"I'm always running late.\" I was standing at the door, keys in hand, and I wasn't even late.\n\nI noticed how easily I'd said it, like a fact about me. So I tried a new sentence out loud: \"I arrive with time to spare.\" It felt a bit silly. Then my shoulders dropped.\n\nWe repeat small sentences about ourselves all day. 💜",
+      "pillar": "assumption",
+      "format": "observation",
+      "product": "assumption",
+      "community": "assumption",
+      "thread_id": "17942223717402161",
+      "reply_id": "18100177703126183"
     }
   ],
   "ghosts": [

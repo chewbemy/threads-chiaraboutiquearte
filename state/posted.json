@@ -1,5 +1,5 @@
 {
-  "counter": 16,
+  "counter": 17,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -159,6 +159,16 @@
       "product": null,
       "community": "manifestation",
       "thread_id": "18138429880734625",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-25T15:31:12+00:00",
+      "text": "Old story: \"I'm just bad with money.\"\n\nNewer story: \"I'm still learning how I feel about money.\"\n\nOne is a verdict. The other leaves a door open.\n\nTry writing the first money sentence you remember hearing as a child. Then ask yourself if you want to keep it. 💫",
+      "pillar": "money",
+      "format": "reframe",
+      "product": null,
+      "community": null,
+      "thread_id": "17933317662424625",
       "reply_id": null
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "counter": 15,
+  "counter": 16,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -150,6 +150,16 @@
       "community": null,
       "thread_id": "18002035266041670",
       "reply_id": "18114792128265324"
+    },
+    {
+      "date": "2026-11-25T14:31:31+00:00",
+      "text": "A letter from your future self feels more real when it describes an ordinary morning, not a big finish line.\n\nTry this prompt:\n\nDear me, it's a year from now and I'm writing to you from my favorite spot at home. This is how my morning goes, from the first sound to the first sip...\n\nWrite for ten minutes. Use what you see, hear and feel. 🔮✨",
+      "pillar": "scripting",
+      "format": "prompt",
+      "product": null,
+      "community": "manifestation",
+      "thread_id": "18138429880734625",
+      "reply_id": null
     }
   ],
   "ghosts": [
@@ -162,6 +172,11 @@
       "date": "2026-11-24T13:31:06+00:00",
       "text": "🔮 When did your gut last know something before your mind caught up? What was it about? One line is enough.",
       "thread_id": "18142342798748048"
+    },
+    {
+      "date": "2026-11-25T14:31:05+00:00",
+      "text": "What's one tiny ritual that makes your day feel more like yours? Morning tea, a candle, a song. Tell me yours. ✨",
+      "thread_id": "17958384177335736"
     }
   ],
   "started": "2026-11-23"

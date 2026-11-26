@@ -1,5 +1,5 @@
 {
-  "counter": 29,
+  "counter": 30,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -290,6 +290,16 @@
       "community": null,
       "thread_id": "18094077224697905",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-26T16:31:12+00:00",
+      "text": "🔮 A moon cycle lasts about a month. That's a kind size for a check-in, and you can use it on any night.\n\nTry this prompt:\n\nWhat is one thing I started quietly this past month, and what small step would help it grow over the next four weeks?\n\nWrite one real example, not a goal for the whole year. A small step you can picture is enough. ⭐",
+      "pillar": "moon",
+      "format": "prompt",
+      "product": "journal2027",
+      "community": "astrology",
+      "thread_id": "18429139738155636",
+      "reply_id": "18191856415365140"
     }
   ],
   "ghosts": [

@@ -1,5 +1,5 @@
 {
-  "counter": 28,
+  "counter": 29,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -279,6 +279,16 @@
       "product": null,
       "community": "assumption",
       "thread_id": "18610149436068126",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-26T15:31:10+00:00",
+      "text": "A two-minute practice for when someone really gets on your nerves. ⭐\n\n1. Name the one quality that bothers you most. Loud, bossy, careless, always cheerful.\n\n2. Ask: \"Where does a small piece of this live in me, even quietly?\"\n\n3. Write the first answer you hear. Then add: \"Thank you for showing me.\"\n\nYou don't have to like them. You're only learning from the sting. 💜",
+      "pillar": "shadow",
+      "format": "micro_practice",
+      "product": null,
+      "community": null,
+      "thread_id": "18094077224697905",
       "reply_id": null
     }
   ],

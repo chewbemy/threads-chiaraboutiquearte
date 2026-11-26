@@ -1,5 +1,5 @@
 {
-  "counter": 30,
+  "counter": 31,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -300,6 +300,16 @@
       "community": "astrology",
       "thread_id": "18429139738155636",
       "reply_id": "18191856415365140"
+    },
+    {
+      "date": "2026-11-26T17:31:06+00:00",
+      "text": "We say: \"I'll journal when I have something worth writing.\"\n\nTry the other way around. You write when you have nothing, and a small something shows up. A tired sentence is enough to start.\n\nOpen to a fresh line and write: \"Right now I feel...\" Finish it once, even if it's just \"hungry and a bit flat.\" 🌟",
+      "pillar": "journaling",
+      "format": "reframe",
+      "product": null,
+      "community": null,
+      "thread_id": "18067876991795624",
+      "reply_id": null
     }
   ],
   "ghosts": [

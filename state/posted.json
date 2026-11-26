@@ -1,5 +1,5 @@
 {
-  "counter": 36,
+  "counter": 37,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -360,6 +360,16 @@
       "community": "manifestation",
       "thread_id": "18133499519492541",
       "reply_id": "18102944849537559"
+    },
+    {
+      "date": "2026-11-26T22:31:08+00:00",
+      "text": "Gratitude lands deeper when it's about a person, not a list.\n\nTry this prompt tonight:\n\nWho made my day a little easier without knowing it, and what exactly did they do?\n\nMaybe a stranger held a door. Maybe someone left the last seat free. Write the small action in one plain sentence, then see how it feels to name it. 🌟",
+      "pillar": "gratitude",
+      "format": "prompt",
+      "product": null,
+      "community": null,
+      "thread_id": "18124740304955664",
+      "reply_id": null
     }
   ],
   "ghosts": [

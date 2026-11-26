@@ -1,5 +1,5 @@
 {
-  "counter": 26,
+  "counter": 27,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -260,6 +260,16 @@
       "community": "manifestation",
       "thread_id": "18085550714344805",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-26T14:01:22+00:00",
+      "text": "Tonight, take a scrap of paper and draw a line down the middle.\n\nOn the left, write one money fact. Only what you could show someone. \"Rent is due on the first.\" \"There are coins in my jar.\"\n\nOn the right, write the story your mind adds. \"I'll never catch up.\"\n\nLook at both for one slow breath. Often the fact is smaller than the story. ✨",
+      "pillar": "money",
+      "format": "tonight",
+      "product": "money",
+      "community": null,
+      "thread_id": "18174402574499119",
+      "reply_id": "17962468899016645"
     }
   ],
   "ghosts": [

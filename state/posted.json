@@ -1,5 +1,5 @@
 {
-  "counter": 25,
+  "counter": 26,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -249,6 +249,16 @@
       "product": null,
       "community": null,
       "thread_id": "18100379546112210",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-26T13:01:34+00:00",
+      "text": "Myth: 3-6-9 and 55x5 work like secret codes, so the numbers do the job.\n\nTruth: they're just ways to repeat one sentence.\n\n3-6-9: write it 3 times in the morning, 6 in the afternoon, 9 at night.\n55x5: write it 55 times a day for 5 days.\n\nPick a sentence you can half believe, and slow down on each line. The count holds you. Your attention is the point. ⭐💜",
+      "pillar": "scripting",
+      "format": "myth",
+      "product": null,
+      "community": "manifestation",
+      "thread_id": "18085550714344805",
       "reply_id": null
     }
   ],

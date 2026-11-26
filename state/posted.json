@@ -1,5 +1,5 @@
 {
-  "counter": 24,
+  "counter": 25,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -240,6 +240,16 @@
       "community": "meditation",
       "thread_id": "18101275277435111",
       "reply_id": "17959724637277974"
+    },
+    {
+      "date": "2026-11-26T12:01:24+00:00",
+      "text": "Today I sat down with my tea in the middle of the afternoon. The laundry was still on the chair. I felt that small tug to get up.\n\nSo I said, \"The laundry can wait ten minutes. I'm allowed to sit.\" Then I finished the tea slowly, no phone.\n\nThe guilt got quieter once the rest had a clear end. Ten minutes felt like permission, not escape. Try it once. ✨",
+      "pillar": "gratitude",
+      "format": "observation",
+      "product": null,
+      "community": null,
+      "thread_id": "18100379546112210",
+      "reply_id": null
     }
   ],
   "ghosts": [

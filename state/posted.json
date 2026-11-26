@@ -1,5 +1,5 @@
 {
-  "counter": 34,
+  "counter": 35,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -339,6 +339,16 @@
       "product": null,
       "community": "meditation",
       "thread_id": "18237413632324805",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-26T20:31:09+00:00",
+      "text": "Read a description of your sign and notice which line you want to argue with. ⭐\n\nWe tend to keep the flattering lines. But the one that makes you say \"that's not me\" is worth a pause. Maybe it's wrong. Maybe you've outgrown it. Or maybe it's a little too close.\n\nWhich line do you argue with, and what is that argument protecting? 💜",
+      "pillar": "astrology",
+      "format": "question",
+      "product": null,
+      "community": null,
+      "thread_id": "18031746146697331",
       "reply_id": null
     }
   ],

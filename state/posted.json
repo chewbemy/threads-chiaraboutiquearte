@@ -1,5 +1,5 @@
 {
-  "counter": 31,
+  "counter": 32,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -309,6 +309,16 @@
       "product": null,
       "community": null,
       "thread_id": "18067876991795624",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-26T18:01:22+00:00",
+      "text": "I was waiting for the lift today, scrolling out of habit. The doors opened and I realized I had not looked up once.\n\nSo on the way down I stood still and counted three things I could hear. A hum, a cough, my own footsteps on the floor.\n\nIt took ten seconds. Waiting rooms like that are all around us, if we notice them. 💫",
+      "pillar": "mindfulness",
+      "format": "observation",
+      "product": null,
+      "community": "mindfulness",
+      "thread_id": "18122390690060643",
       "reply_id": null
     }
   ],

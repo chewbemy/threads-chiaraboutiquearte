@@ -1,5 +1,5 @@
 {
-  "counter": 37,
+  "counter": 38,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -369,6 +369,16 @@
       "product": null,
       "community": null,
       "thread_id": "18124740304955664",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-26T23:31:09+00:00",
+      "text": "A mental diet doesn't mean banning every unwanted thought. ⭐\n\nThoughts will visit. What grows is the one you retell, replay and add to.\n\nSo let the old one pass without a debate. Then say one plain sentence in the voice of who you're becoming: \"I handle things calmly.\"\n\nSay it as if it's already true. 💜",
+      "pillar": "assumption",
+      "format": "reframe",
+      "product": null,
+      "community": "assumption",
+      "thread_id": "18135493474606435",
       "reply_id": null
     }
   ],

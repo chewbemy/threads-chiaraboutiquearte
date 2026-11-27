@@ -22,6 +22,12 @@ N = FPS * SECONDS
 PHI = (1 + 5 ** 0.5) / 2
 
 _FONT_DIR = os.path.join(os.path.dirname(__file__), "fonts")
+FIG_DIR = os.path.join(os.path.dirname(__file__), "figures")
+
+
+def figure_path(subject):
+    p = os.path.join(FIG_DIR, subject["key"].replace(":", "-") + ".png")
+    return p if os.path.exists(p) else None
 SANS = os.path.join(_FONT_DIR, "DejaVuSans.ttf")
 SERIF = os.path.join(_FONT_DIR, "DejaVuSerif.ttf")
 MONO = os.path.join(_FONT_DIR, "DejaVuSansMono.ttf")
@@ -255,6 +261,10 @@ class Scene:
             y = min(H - 380, max(150, self.cy + rad * math.sin(a)))
             self.markers.append((x, y, r.choice([1, 2]), r.random(), f"x: {int(x * 0.4)}  y: {int(y * 0.4)}"))
         self.static = self._static_layer()
+        self.fig = self._figure_layers()
+        if self.fig:
+            ox, oy, fw, fh = self.fig_box
+            self.markers = [m for m in self.markers if not (abs(m[0] - self.cx) < 230 and m[1] < 240) and not (ox - 60 < m[0] < ox + fw + 10 and oy - 20 < m[1] < oy + fh + 20)]
         self.dots = self._main_dots()
         self.const = self._constellation()
         self.text_layer = self._text_layer()
@@ -298,9 +308,44 @@ class Scene:
         bg.alpha_composite(over)
         return bg
 
+    # --- engraved figure (one-off illustration) turned into golden stipple
+    def _figure_layers(self):
+        path = figure_path(self.s)
+        if not path:
+            return None
+        src = Image.open(path).convert("L")
+        bbox = src.point(lambda v: 255 if v > 40 else 0).getbbox() or (0, 0, *src.size)
+        src = src.crop(bbox)
+        box = 680
+        scale = min(box / src.width, box / src.height)
+        src = src.resize((int(src.width * scale), int(src.height * scale)), Image.LANCZOS)
+        ox, oy = int(self.cx - src.width / 2), int(self.cy + 95 - src.height / 2)
+        self.fig_box = (ox, oy, src.width, src.height)
+        base = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        spark = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        bd, sd = ImageDraw.Draw(base), ImageDraw.Draw(spark)
+        px = src.load()
+        step = 3
+        rng = self.rng
+        for y in range(0, src.height, step):
+            for x in range(0, src.width, step):
+                v = px[x, y] / 255
+                if v < 0.22:
+                    continue
+                rr = 0.35 + 1.15 * v
+                cx_, cy_ = ox + x + (step / 2 if (y // step) % 2 else 0), oy + y
+                col = tuple(int(GOLD[i] * (1 - v) + GOLD_HI[i] * v) for i in range(3))
+                bd.ellipse([cx_ - rr, cy_ - rr, cx_ + rr, cy_ + rr], fill=col + (int(50 + 205 * v ** 1.6),))
+                if v > 0.7 and rng.random() < 0.05:
+                    sd.ellipse([cx_ - rr * 2.4, cy_ - rr * 2.4, cx_ + rr * 2.4, cy_ + rr * 2.4], fill=GOLD_HI + (200,))
+        spark = spark.filter(ImageFilter.GaussianBlur(3))
+        return base, spark, rng.random()
+
     # --- the main symbol as golden dots
     def _main_dots(self):
         s = self.s
+        if self.fig:
+            return self._small_symbol()
         size = int(self.med_r * 1.55)
         if s["kind"] in ("sign", "planet"):
             mask = _glyph_mask(s["glyph"], size)
@@ -319,13 +364,32 @@ class Scene:
         pts = _mask_points(mask, spacing, self.cx - size / 2, self.cy - size / 2)
         return [(x, y, self.rng.randint(1, 3), self.rng.random()) for x, y in pts]
 
+    def _small_symbol(self):
+        """With a figure in the medallion, the sign glyph or tarot icon goes small, top right."""
+        s = self.s
+        size = 150
+        if s["kind"] in ("sign", "planet"):
+            mask = _glyph_mask(s["glyph"], size)
+        elif s["kind"] in ("tarot", "element"):
+            mask = _icon_mask(s["icon"], size)
+        else:
+            return []
+        x0, y0 = W - 120 - size, 150
+        self.small_ring = (x0 + size / 2, y0 + size / 2, size * 0.68)
+        pts = _mask_points(mask, 6, x0, y0)
+        return [(x, y, 0, self.rng.random()) for x, y in pts]
+
     # --- constellation (signs: in the band under the medallion; constellations: inside it)
     def _constellation(self):
         key = self.s.get("constellation")
         if not key:
             return None
         name, ra, dec, stars, edges = catalog.CONSTELLATIONS[key]
-        if self.s["kind"] == "constellation":
+        if self.fig:  # drawn over the figure, as in an old star atlas
+            ox, oy, fw, fh = self.fig_box
+            bw, bh = fw * 0.9, fh * 0.9
+            bx, by = ox + fw * 0.05, oy + fh * 0.05
+        elif self.s["kind"] == "constellation":
             bw = bh = self.med_r * 1.5
             bx, by = self.cx - bw / 2, self.cy - bh / 2
         else:
@@ -403,13 +467,21 @@ class Scene:
             sd.text((x + 12, y - 8), label, font=mono, fill=LAVENDER + (int(90 + 110 * b),))
 
         breathe = 0.5 + 0.5 * math.sin(2 * math.pi * p)
+        if self.fig:
+            base, spark, ph0 = self.fig
+            img.alpha_composite(base)
+            a = 0.5 + 0.5 * math.sin(2 * math.pi * (2 * p + ph0))
+            img.alpha_composite(Image.blend(Image.new("RGBA", (W, H), (0, 0, 0, 0)), spark, a))
+            if getattr(self, "small_ring", None):
+                x, y, r_ = self.small_ring
+                sd.ellipse([x - r_, y - r_, x + r_, y + r_], outline=self.gold + (130,), width=1)
         for x, y, sz, ph in self.dots:
             b = 0.55 + 0.45 * math.sin(2 * math.pi * (2 * p + ph))
             rr = 1.6 + sz * 0.7
             sd.ellipse([x - rr, y - rr, x + rr, y + rr], fill=GOLD_HI + (int(170 + 85 * b),))
             if b > 0.75:
                 gd.ellipse([x - rr * 2.2, y - rr * 2.2, x + rr * 2.2, y + rr * 2.2], fill=self.gold + (int(110 * b),))
-        if self.dots:
+        if self.dots and not self.fig:
             gr = self.med_r * (0.55 + 0.05 * breathe)
             gd.ellipse([self.cx - gr, self.cy - gr, self.cx + gr, self.cy + gr], fill=(120, 60, 150, int(26 + 20 * breathe)))
 

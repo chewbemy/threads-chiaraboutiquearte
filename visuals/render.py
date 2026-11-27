@@ -51,6 +51,23 @@ def _spaced(draw, center_x, y, text, font, fill, spacing):
         x += w + spacing
 
 
+def _fmt_ra(sec, full=False):
+    sec %= 86400
+    h, rem = divmod(sec, 3600)
+    m, s_ = divmod(rem, 60)
+    return f"{int(h):02d}h {int(m):02d}m {s_:04.1f}s" if full else f"RA {int(h):02d}h{int(m):02d}m{int(s_):02d}s"
+
+
+def _fmt_dec(arcsec, full=False):
+    arcsec = max(-324000, min(324000, arcsec))
+    sign = "+" if arcsec >= 0 else "\u2212"
+    a = abs(arcsec)
+    d, rem = divmod(a, 3600)
+    m, s_ = divmod(rem, 60)
+    return (f"{sign}{int(d):02d}\u00b0 {int(m):02d}\u2032 {s_:04.1f}\u2033" if full
+            else f"DEC {sign}{int(d):02d}\u00b0{int(m):02d}\u2032{int(s_):02d}\u2033")
+
+
 def _mask_points(mask, spacing, ox, oy):
     """Hex-grid sample of a mask's white area -> list of (x, y) in canvas space."""
     pts = []
@@ -251,7 +268,24 @@ class Scene:
             self.ring_specs.append((rad, n, m, dash, r.choice([1, 2, 2])))
         self.stars = [(r.uniform(0, W), r.uniform(0, H), r.choice([1, 1, 1, 2, 2, 3]), r.randint(1, 3), r.random())
                       for _ in range(r.randint(170, 260))]
-        self.shoot = (r.uniform(0.15, 0.6), r.uniform(-0.2, 0.2), r.uniform(0.0, 0.5))
+        # meteor shower: all meteors share a radiant direction, each crosses once per loop
+        theta = math.radians(r.uniform(115, 150))          # heading down-left
+        self.met_dir = (math.cos(theta), math.sin(theta))
+        self.meteors = []
+        for _ in range(r.randint(38, 48)):
+            sx = r.uniform(W * 0.25, W * 1.15)
+            sy = r.uniform(-H * 0.25, H * 0.45)
+            self.meteors.append((sx, sy, r.random(), r.uniform(0.08, 0.16), r.uniform(700, 1200),
+                                 r.uniform(220, 460), r.choice([2.0, 2.6, 3.2, 4.0])))
+        # astronomical coordinates (base values; they drift periodically each frame)
+        key = subject.get("constellation")
+        if key:
+            _n, ra, dec, *_x = catalog.CONSTELLATIONS[key]
+            self.ra0 = int(ra[:2]) * 3600 + int(ra[4:6]) * 60 + r.uniform(0, 59)
+            self.dec0 = float(dec.replace("\u2212", "-").replace("+", "").rstrip("\u00b0")) * 3600 + r.uniform(-1800, 1800)
+        else:
+            self.ra0 = r.uniform(0, 86400)
+            self.dec0 = r.uniform(-60, 60) * 3600
         self.layout = r.choice(["classic", "tilted"])
         self.markers = []
         for _ in range(r.randint(5, 8)):
@@ -259,12 +293,13 @@ class Scene:
             rad = r.uniform(self.med_r * 0.95, self.med_r * 1.7)
             x = min(W - 150, max(80, self.cx + rad * math.cos(a)))
             y = min(H - 380, max(150, self.cy + rad * math.sin(a)))
-            self.markers.append((x, y, r.choice([1, 2]), r.random(), f"x: {int(x * 0.4)}  y: {int(y * 0.4)}"))
+            self.markers.append((x, y, r.choice([1, 2]), r.random(), (x - self.cx) * 9, (self.cy - y) * 6))
         self.static = self._static_layer()
         self.fig = self._figure_layers()
+        self._paint_moons()
         if self.fig:
             ox, oy, fw, fh = self.fig_box
-            self.markers = [m for m in self.markers if not (abs(m[0] - self.cx) < 230 and m[1] < 240) and not (ox - 60 < m[0] < ox + fw + 10 and oy - 20 < m[1] < oy + fh + 20)]
+            self.markers = [m for m in self.markers if not (m[0] > W - 380 and m[1] < 360) and not (abs(m[0] - self.cx) < 230 and m[1] < 240) and not (ox - 60 < m[0] < ox + fw + 10 and oy - 20 < m[1] < oy + fh + 20)]
         self.dots = self._main_dots()
         self.const = self._constellation()
         self.text_layer = self._text_layer()
@@ -307,6 +342,46 @@ class Scene:
         bg = bg.convert("RGBA")
         bg.alpha_composite(over)
         return bg
+
+    # --- a few small golden moons that shine steadily
+    def _paint_moons(self):
+        r = self.rng
+        layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        placed = []
+        tries = 0
+        while len(placed) < r.randint(3, 5) and tries < 200:
+            tries += 1
+            x, y = r.uniform(80, W - 80), r.uniform(90, H - 400)
+            if math.hypot(x - self.cx, y - self.cy) < self.med_r + 150:
+                continue
+            if x > W - 340 and y < 340:   # small symbol ring
+                continue
+            if abs(x - self.cx) < 230 and y < 240:
+                continue
+            if x < 460 and y < 150:       # RA / DEC readout
+                continue
+            if self.fig:
+                ox, oy, fw, fh = self.fig_box
+                if ox - 40 < x < ox + fw + 40 and oy - 40 < y < oy + fh + 40:
+                    continue
+            if any(math.hypot(x - a, y - b) < 160 for a, b in placed):
+                continue
+            placed.append((x, y))
+        gd = ImageDraw.Draw(glow)
+        for x, y in placed:
+            rad = r.uniform(12, 22)
+            gd.ellipse([x - rad * 2.6, y - rad * 2.6, x + rad * 2.6, y + rad * 2.6], fill=GOLD + (95,))
+            m = Image.new("L", (W, H), 0)
+            md = ImageDraw.Draw(m)
+            md.ellipse([x - rad, y - rad, x + rad, y + rad], fill=255)
+            if r.random() < 0.85:  # crescent
+                a = r.uniform(0, 2 * math.pi)
+                dx, dy = math.cos(a) * rad * 0.55, math.sin(a) * rad * 0.55
+                md.ellipse([x + dx - rad, y + dy - rad, x + dx + rad, y + dy + rad], fill=0)
+            layer.paste(Image.new("RGBA", (W, H), GOLD_HI + (255,)), (0, 0), m)
+        self.static.alpha_composite(glow.filter(ImageFilter.GaussianBlur(9)))
+        self.static.alpha_composite(layer)
 
     # --- engraved figure (one-off illustration) turned into golden stipple
     def _figure_layers(self):
@@ -423,11 +498,6 @@ class Scene:
         mono = _font(MONO, 19)
         if s["kind"] == "tarot":
             _spaced(d, W / 2, 150, s["numeral"], _font(SERIF, 64), self.gold + (235,), spacing=10)
-        if self.const:
-            d.text((70, 70), f"RA  {self.const['ra']}", font=mono, fill=LAVENDER + (170,))
-            d.text((70, 96), f"DEC {self.const['dec']}", font=mono, fill=LAVENDER + (170,))
-        elif s["kind"] == "sign":
-            pass
         info = {"sign": f"{s.get('element', '').upper()}  ·  {s.get('ruler', '').upper()}"}.get(s["kind"])
         if info:
             d.text((W - 70 - d.textlength(info, font=mono), 70), info, font=mono, fill=LAVENDER + (170,))
@@ -459,12 +529,20 @@ class Scene:
                        math.degrees(a0), math.degrees(a1), fill=self.gold + (120,), width=lw)
 
         mono = _font(MONO, 15)
-        for x, y, k, ph, label in self.markers:
+        for x, y, k, ph, dra, ddec in self.markers:
             b = 0.5 + 0.5 * math.sin(2 * math.pi * (k * p + ph))
             rr = 4 + 3 * b
             sd.ellipse([x - rr, y - rr, x + rr, y + rr], fill=GOLD + (int(120 + 135 * b),))
             gd.ellipse([x - rr * 2.5, y - rr * 2.5, x + rr * 2.5, y + rr * 2.5], fill=GOLD + (int(80 * b),))
-            sd.text((x + 12, y - 8), label, font=mono, fill=LAVENDER + (int(90 + 110 * b),))
+            ra = self.ra0 + dra + 40 * math.sin(2 * math.pi * (p + ph))
+            dec = self.dec0 + ddec * 10 + 300 * math.cos(2 * math.pi * (p + ph))
+            sd.text((x + 12, y - 16), _fmt_ra(ra), font=mono, fill=LAVENDER + (int(110 + 110 * b),))
+            sd.text((x + 12, y + 2), _fmt_dec(dec), font=mono, fill=LAVENDER + (int(80 + 100 * b),))
+        big = _font(MONO, 19)
+        ra = self.ra0 + 60 * math.sin(2 * math.pi * p)
+        dec = self.dec0 + 420 * math.sin(2 * math.pi * (p + 0.25))
+        sd.text((70, 70), "RA  " + _fmt_ra(ra, full=True), font=big, fill=LAVENDER + (190,))
+        sd.text((70, 96), "DEC " + _fmt_dec(dec, full=True), font=big, fill=LAVENDER + (190,))
 
         breathe = 0.5 + 0.5 * math.sin(2 * math.pi * p)
         if self.fig:
@@ -509,17 +587,28 @@ class Scene:
                 gd.ellipse([x - rr * 3, y - rr * 3, x + rr * 3, y + rr * 3], fill=self.gold + (int(90 * tw),))
                 sd.text((x + rr + 5, y - rr - 14), greek[j % len(greek)], font=small, fill=LAVENDER + (150,))
 
-        # one shooting star per loop, entering and leaving off-canvas
-        sy0, slope, t0 = self.shoot
-        t = (p - t0) % 1.0
-        if t < 0.18:
-            q = t / 0.18
-            x = -150 + q * (W + 300)
-            y = H * sy0 + slope * x
-            for k in range(14):
-                xx = x - k * 9
-                yy = y - slope * k * 9
-                sd.ellipse([xx - 1.5, yy - 1.5, xx + 1.5, yy + 1.5], fill=GOLD_HI + (int(220 * (1 - k / 14)),))
+        # golden meteor shower: each meteor crosses once per loop, invisible outside its slot
+        ux, uy = self.met_dir
+        for sx, sy, t0, dur, travel, length, width in self.meteors:
+            t = (p - t0) % 1.0
+            if t >= dur:
+                continue
+            q = t / dur
+            fade = math.sin(math.pi * q)               # fades in and out: no pop
+            hx, hy = sx + ux * travel * q, sy + uy * travel * q
+            segs = 18
+            for k in range(segs):
+                f0, f1 = k / segs, (k + 1) / segs
+                a = int(255 * min(1.0, fade * 1.4) * (1 - f0) ** 1.3)
+                wdt = max(1, int(width * 1.4 * (1 - f0) + 0.5))
+                sd.line([(hx - ux * length * f0, hy - uy * length * f0), (hx - ux * length * f1, hy - uy * length * f1)],
+                        fill=GOLD_HI + (a,), width=wdt)
+                if k < 7:
+                    gd.line([(hx - ux * length * f0, hy - uy * length * f0), (hx - ux * length * f1, hy - uy * length * f1)],
+                            fill=GOLD_HI + (int(a * 0.9),), width=wdt * 5)
+            hr = width * 1.3
+            sd.ellipse([hx - hr, hy - hr, hx + hr, hy + hr], fill=(255, 244, 210, int(255 * fade)))
+            gd.ellipse([hx - hr * 5, hy - hr * 5, hx + hr * 5, hy + hr * 5], fill=GOLD_HI + (int(170 * fade),))
 
         glow = glow.filter(ImageFilter.GaussianBlur(7))
         img.alpha_composite(glow)

@@ -389,6 +389,12 @@ class Scene:
         if not path:
             return None
         src = Image.open(path).convert("L")
+        m = int(src.width * 0.035)                     # drop any frame the model drew at the edges
+        src = src.crop((m, m, src.width - m, src.height - m))
+        edge = [src.getpixel((x, y)) for x in range(0, src.width, 8) for y in (2, src.height - 3)]
+        edge += [src.getpixel((x, y)) for y in range(0, src.height, 8) for x in (2, src.width - 3)]
+        bg = sorted(edge)[len(edge) // 2] + 10          # grey backgrounds become black
+        src = src.point(lambda v: max(0, min(255, int((v - bg) * 255 / max(1, 255 - bg)))))
         bbox = src.point(lambda v: 255 if v > 40 else 0).getbbox() or (0, 0, *src.size)
         src = src.crop(bbox)
         box = 680

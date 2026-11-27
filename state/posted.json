@@ -1,5 +1,5 @@
 {
-  "counter": 43,
+  "counter": 44,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -432,6 +432,16 @@
       "product": null,
       "community": null,
       "thread_id": "18113350138914942",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-27T15:32:38+00:00",
+      "text": "Try this tonight, in the first minute after the light goes off.\n\nLet your hands be heavy on the blanket. Now find the oldest sound in the room: a fridge hum, a pipe, wind at the glass. Listen to it for five slow breaths.\n\nWhen your mind wanders off, come back to that one sound. It's a small anchor, and it's already there. 💫",
+      "pillar": "mindfulness",
+      "format": "tonight",
+      "product": null,
+      "community": "mindfulness",
+      "thread_id": "18166743850544734",
       "reply_id": null
     }
   ],

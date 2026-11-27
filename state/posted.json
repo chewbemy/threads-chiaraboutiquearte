@@ -1,5 +1,5 @@
 {
-  "counter": 41,
+  "counter": 42,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -412,6 +412,16 @@
       "community": null,
       "thread_id": "17916403503473893",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-27T14:32:15+00:00",
+      "text": "Myth: a new moon intention should be a long wish list, and the full moon is when you grade how it went.\n\nTruth: one small intention you can actually do is enough. Make it a verb. \"This month I'll walk after lunch.\"\n\nAt the full moon, skip the grading. Ask two things: what did this make room for, and what can I put down now? 💫",
+      "pillar": "moon",
+      "format": "myth",
+      "product": "journal2027",
+      "community": "astrology",
+      "thread_id": "18651773608056293",
+      "reply_id": "18387224149232826"
     }
   ],
   "ghosts": [
@@ -434,6 +444,11 @@
       "date": "2026-11-26T14:31:04+00:00",
       "text": "What's one thing you're ready to stop carrying? Big or tiny, it counts. Just a few words is fine. 💜",
       "thread_id": "17980295832178016"
+    },
+    {
+      "date": "2026-11-27T14:31:06+00:00",
+      "text": "Which zodiac sign do you feel you're most like, and which one do you secretly wish you were? One line is plenty. 🌟",
+      "thread_id": "18020469665748065"
     }
   ],
   "started": "2026-11-23"

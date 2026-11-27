@@ -1,5 +1,5 @@
 {
-  "counter": 50,
+  "counter": 51,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -509,6 +509,17 @@
       "community": "manifestation",
       "thread_id": "17884548402548690",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-27T20:32:05+00:00",
+      "text": "IV · The Emperor\n\nYour sign to stop waiting: The Emperor, the card of structure.\n\nRead it, then close your eyes for three breaths. 🔮 ⭐",
+      "pillar": "visual:tarot",
+      "format": "video",
+      "subject": "tarot:the_emperor",
+      "product": "money",
+      "community": null,
+      "thread_id": "18085162286415812",
+      "reply_id": "18378158785241115"
     }
   ],
   "ghosts": [

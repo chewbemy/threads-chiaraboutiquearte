@@ -18,6 +18,14 @@
     ],
     "links_from_day": 3
   },
+  "visual": {
+    "enabled": true,
+    "avoid_last": 30,
+    "media_dir": "media",
+    "keep_days": 3,
+    "host": "jsdelivr",
+    "note": "Every regular post is a looping video made by code (0 API cost). Set enabled to false to go back to text posts."
+  },
   "link_every": 3,
   "community_every": 2,
   "max_post_chars": 420,

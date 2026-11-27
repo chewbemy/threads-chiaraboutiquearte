@@ -8,6 +8,12 @@ Text is written by Claude and published through the official Threads API.
 State lives in state/posted.json so that reruns never double-post and
 Claude never repeats itself.
 
+Animated posts (config "visual"): when enabled, every regular post is a
+looping plum-and-gold video made by code (zodiac signs, tarot, constellations,
+moon phases, elements, planets) with a caption written from templates: no AI
+credits, no API cost. Cadence, communities, ramp-up and the Etsy link in the
+first reply every few posts work exactly as for text posts.
+
 A ramp-up (config "ramp") raises the daily number of posts step by step
 during the first days. Once every 24 hours the same run also publishes a "ghost post" (a question
 that Threads archives by itself after 24 hours).
@@ -24,7 +30,9 @@ import datetime as dt
 import difflib
 import json
 import os
+import random
 import re
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -409,6 +417,178 @@ def publish(text, reply_to=None, topic_tag=None, extra=None):
     raise last
 
 
+# ---------------------------------------------------------------- animated posts
+class VisualFallback(Exception):
+    """Video could not be made or published: nothing went out, post text instead."""
+
+
+VISUAL_COMMUNITY_PILLARS = {
+    "astrology": ["astrology", "moon"],
+    "manifestation": ["scripting", "money", "moon", "journaling"],
+}
+
+
+def git(*args):
+    out = subprocess.run(["git", "-c", "user.name=threads-bot",
+                          "-c", "user.email=threads-bot@users.noreply.github.com", *args],
+                         cwd=ROOT, capture_output=True, text=True)
+    if out.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args)} failed: {out.stderr.strip()[:400]}")
+    return out.stdout.strip()
+
+
+def push_media(path, keep_days):
+    """Commit the video (and drop old ones) so that it has a public URL."""
+    media_dir = path.parent
+    cutoff = time.time() - keep_days * 86400
+    for old in media_dir.glob("*.mp4"):
+        if old != path and old.stat().st_mtime < cutoff:
+            old.unlink()
+    git("add", "-A", str(media_dir.relative_to(ROOT)))
+    git("commit", "-m", f"media: {path.name}")
+    for attempt in range(3):
+        try:
+            git("pull", "--rebase")
+            git("push")
+            break
+        except RuntimeError as exc:
+            if attempt == 2:
+                raise
+            log(f"push retry: {exc}")
+            time.sleep(5)
+    return git("rev-parse", "HEAD")
+
+
+def media_url(rel_path, sha):
+    repo = os.environ.get("GITHUB_REPOSITORY", "chewbemy/threads-chiaraboutiquearte")
+    host = (CONFIG.get("visual") or {}).get("host", "jsdelivr")
+    if host == "raw":
+        return f"https://raw.githubusercontent.com/{repo}/{sha}/{rel_path}"
+    return f"https://cdn.jsdelivr.net/gh/{repo}@{sha}/{rel_path}"
+
+
+def wait_for_url(url, seconds=90):
+    for _ in range(seconds // 5):
+        try:
+            r = requests.head(url, timeout=15, allow_redirects=True)
+            if r.status_code == 200:
+                return
+        except requests.RequestException:
+            pass
+        time.sleep(5)
+    raise RuntimeError(f"video not reachable at {url} (is the repository public?)")
+
+
+def publish_video(video_url, text, topic_tag=None, wait_max=300):
+    params = {"media_type": "VIDEO", "video_url": video_url, "text": text}
+    if topic_tag:
+        params["topic_tag"] = topic_tag
+    container = threads_post(f"{THREADS_USER}/threads", params)
+    token = os.environ["THREADS_ACCESS_TOKEN"]
+    waited = 0
+    while waited < wait_max:
+        time.sleep(10)
+        waited += 10
+        st = requests.get(f"{THREADS_HOST}/{container}",
+                          params={"fields": "status,error_message", "access_token": token}, timeout=30).json()
+        status = st.get("status")
+        if status == "FINISHED":
+            return threads_post(f"{THREADS_USER}/threads_publish", {"creation_id": container})
+        if status in ("ERROR", "EXPIRED"):
+            raise RuntimeError(f"Threads could not process the video: {st}")
+    raise RuntimeError("Threads did not finish processing the video in time")
+
+
+def run_visual(state, now):
+    from visuals import captions, render
+    from visuals.pick import pick_subject
+
+    vis = CONFIG["visual"]
+    rng = random.Random()
+    recent = state["posts"]
+    counter = state["counter"] + 1
+    history = [p.get("subject") for p in recent if p.get("subject")]
+    subject = pick_subject(history, today=now.date(), avoid_last=vis.get("avoid_last", 30), rng=rng)
+
+    communities = {c["id"]: c for c in CONFIG.get("communities", []) if c.get("active", True)}
+    every = CONFIG.get("community_every", 0)
+    community = communities.get(subject["community"]) if every and counter % every == 0 else None
+
+    product = None
+    link_every = CONFIG.get("link_every", 0)
+    products = [p for p in CONFIG["products"] if p.get("active", True)]
+    if links_allowed(state, now) and products and link_every and counter % link_every == 0:
+        wanted = set(VISUAL_COMMUNITY_PILLARS.get(subject["community"], []))
+        pool = [p for p in products if set(p["pillars"]) & wanted] or products
+        product = pick_rotating(pool, [p for p in recent if p.get("product")], "product")
+
+    palette = CONFIG["emoji"]["palette"]
+    recent_texts = [p["text"] for p in recent[-CONFIG.get("memory_posts", 25):]]
+    # templates: try several and keep the one least similar to the recent posts
+    best, best_score = None, 2.0
+    for _ in range(12):
+        candidate = captions.make_caption(subject, palette, rng)
+        if check_text(candidate, [], CONFIG["max_post_chars"], min_emoji=CONFIG["emoji"]["min"]):
+            continue
+        score = max((difflib.SequenceMatcher(None, candidate.lower(), t.lower()).ratio() for t in recent_texts), default=0)
+        if score < best_score:
+            best, best_score = candidate, score
+        if score <= 0.6:
+            break
+    caption = best or captions.make_caption(subject, palette, rng)
+    reply = build_reply(captions.make_reply_intro(palette, rng), product) if product else ""
+
+    log(f"Post #{counter} | VIDEO {subject['key']} | "
+        f"{'community: ' + community['topic_tag'] if community else 'profile post'} | "
+        f"product: {product['id'] if product else '-'}")
+    log("\n--- CAPTION ---\n" + caption)
+    if reply:
+        log("\n--- FIRST REPLY ---\n" + reply)
+
+    media_dir = ROOT / vis.get("media_dir", "media")
+    media_dir.mkdir(exist_ok=True)
+    path = media_dir / f"{now.strftime('%Y%m%d-%H%M%S')}-{subject['key'].replace(':', '-')}.mp4"
+    try:
+        t0 = time.time()
+        render.render(subject, rng.randrange(10 ** 9), str(path))
+        log(f"Rendered {path.name} in {time.time() - t0:.0f}s ({path.stat().st_size // 1024} KB)")
+        if DRY_RUN:
+            log("\nDRY_RUN=1: video rendered, nothing published, state not saved.")
+            return 0
+        sha = push_media(path, vis.get("keep_days", 3))
+        url = media_url(str(path.relative_to(ROOT)), sha)
+        wait_for_url(url)
+        thread_id = publish_video(url, caption, topic_tag=community["topic_tag"] if community else None)
+    except Exception as exc:  # nothing was published: the caller falls back to a text post
+        raise VisualFallback(str(exc)) from exc
+    log(f"\nPublished video post {thread_id}")
+    entry = {
+        "date": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "text": caption,
+        "pillar": "visual:" + subject["kind"],
+        "format": "video",
+        "subject": subject["key"],
+        "product": product["id"] if product else None,
+        "community": community["id"] if community else None,
+        "thread_id": thread_id,
+        "reply_id": None,
+    }
+    state["counter"] = counter
+    state.setdefault("started", entry["date"][:10])
+    state["posts"].append(entry)
+    save_state(state)
+
+    if reply:
+        try:
+            entry["reply_id"] = publish(reply, reply_to=thread_id)
+            log(f"Published reply {entry['reply_id']}")
+            save_state(state)
+        except RuntimeError as exc:
+            log(f"Post is live but the reply failed: {exc}")
+            return 1
+    return 0
+
+
 # ---------------------------------------------------------------- main
 def main():
     state = load_state()
@@ -424,6 +604,12 @@ def main():
             run_ghost(state)
         except RuntimeError as exc:  # the regular post must go out anyway
             log(f"Ghost post failed: {exc}")
+
+    if (CONFIG.get("visual") or {}).get("enabled"):
+        try:
+            return run_visual(state, now)
+        except VisualFallback as exc:
+            log(f"Video post not possible this time ({exc}); posting text instead.")
 
     counter, pillar, fmt, product, community = plan_post(state, links_allowed(state, now))
     log(

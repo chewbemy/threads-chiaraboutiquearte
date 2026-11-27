@@ -114,3 +114,13 @@ Il bot controlla anche da solo la fascia (12:00–24:00 UTC in `config.json`): u
 - Scartati i post con link, più di un hashtag, frasi da "engagement bait" o oltre 420 caratteri.
 - Se il primo commento fallisce, il post resta registrato e non viene ripubblicato.
 - Solo API ufficiale: nessun follow, like o messaggio automatico.
+
+## Post animati (dal 27 novembre 2026)
+
+Con `"visual": {"enabled": true}` in `config.json` ogni post normale diventa un video di 8 secondi in loop, viola prugna e oro. I soggetti sono segni zodiacali, Arcani Maggiori, costellazioni, fasi lunari, elementi e pianeti. Il video è fatto interamente dal codice (`visuals/`) e la didascalia nasce da modelli di testo: **costo 0**, niente crediti AI e niente API Claude. Restano attivi solo il post fantasma quotidiano e, se torni ai post di testo, la scrittura dei testi.
+
+- Il ritmo resta quello di prima: la rampa, 24 post al giorno a regime, le community a post alterni (Astrology Threads o Manifestation, in base al soggetto) e il primo commento con link Etsy e CHIARA20 ogni 3 post.
+- Non finisce mai: lo stesso soggetto non torna prima di 30 post e ogni video ha una composizione nuova. Il segno di cui è la stagione esce più spesso.
+- I video vengono salvati in `media/` e pubblicati tramite jsDelivr, quindi **il repository deve essere pubblico**. I file più vecchi di 3 giorni si cancellano da soli.
+- Se un video non si può fare o pubblicare, quel giro esce un post di testo: il bot non si ferma.
+- Per tornare ai soli testi: `"enabled": false`.

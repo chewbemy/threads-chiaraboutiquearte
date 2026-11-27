@@ -4,7 +4,7 @@ on:
   workflow_dispatch:        # avviato da cron-job.org (o a mano dal tab Actions)
     inputs:
       dry_run:
-        description: "Solo prova: genera il testo senza pubblicare"
+        description: "Solo prova: genera testo e video senza pubblicare"
         type: boolean
         default: false
 
@@ -18,7 +18,7 @@ permissions:
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 

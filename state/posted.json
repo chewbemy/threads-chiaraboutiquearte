@@ -1,5 +1,5 @@
 {
-  "counter": 52,
+  "counter": 53,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -530,6 +530,17 @@
       "product": null,
       "community": "manifestation",
       "thread_id": "17916833232550756",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-27T22:02:20+00:00",
+      "text": "Libra · Sep 23 – Oct 22\n\nJournal prompt for Libra energy: Where in your life are you ready to restore balance?\n\n💫",
+      "pillar": "visual:sign",
+      "format": "video",
+      "subject": "sign:libra",
+      "product": null,
+      "community": null,
+      "thread_id": "18126209951473107",
       "reply_id": null
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "counter": 53,
+  "counter": 54,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -542,6 +542,17 @@
       "community": null,
       "thread_id": "18126209951473107",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-27T22:32:03+00:00",
+      "text": "XVII · The Star\n\n🌟 Card of the moment: The Star. Let it ask you about renewal. ⭐",
+      "pillar": "visual:tarot",
+      "format": "video",
+      "subject": "tarot:the_star",
+      "product": "scripting",
+      "community": "manifestation",
+      "thread_id": "18086005898539497",
+      "reply_id": "18404373583203311"
     }
   ],
   "ghosts": [

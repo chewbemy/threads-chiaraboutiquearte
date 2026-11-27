@@ -1,5 +1,5 @@
 {
-  "counter": 42,
+  "counter": 43,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -422,6 +422,17 @@
       "community": "astrology",
       "thread_id": "18651773608056293",
       "reply_id": "18387224149232826"
+    },
+    {
+      "date": "2026-11-27T15:02:22+00:00",
+      "text": "Waning Crescent\n\nSmall Waning Crescent ritual: light a candle and write one line about rest.\n\nKeep this one close. ✨ ⭐",
+      "pillar": "visual:moon",
+      "format": "video",
+      "subject": "moon:waning_crescent",
+      "product": null,
+      "community": null,
+      "thread_id": "18113350138914942",
+      "reply_id": null
     }
   ],
   "ghosts": [

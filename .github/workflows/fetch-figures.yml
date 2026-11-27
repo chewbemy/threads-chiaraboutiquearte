@@ -1,0 +1,44 @@
+name: Scarica figure
+
+# Scarica una volta sola le illustrazioni elencate in visuals/figures/sources.json
+# e le salva nel repo; da lì il bot le anima gratis per sempre.
+on:
+  workflow_dispatch:
+  push:
+    paths: ["visuals/figures/sources.json"]
+
+concurrency:
+  group: threads-post
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scarica le figure mancanti
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, urllib.request
+          d = pathlib.Path("visuals/figures")
+          for key, url in json.loads((d / "sources.json").read_text()).items():
+              out = d / f"{key}.png"
+              if out.exists():
+                  continue
+              urllib.request.urlretrieve(url, out)
+              print("scaricata", out, out.stat().st_size)
+          PY
+      - name: Salva
+        run: |
+          git config user.name "threads-bot"
+          git config user.email "threads-bot@users.noreply.github.com"
+          git add visuals/figures
+          if git diff --cached --quiet; then echo "Niente di nuovo."; else
+            git commit -m "figure: nuove illustrazioni"
+            git pull --rebase
+            git push
+          fi

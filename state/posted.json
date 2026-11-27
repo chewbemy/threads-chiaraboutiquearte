@@ -1,5 +1,5 @@
 {
-  "counter": 54,
+  "counter": 55,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -553,6 +553,17 @@
       "community": "manifestation",
       "thread_id": "18086005898539497",
       "reply_id": "18404373583203311"
+    },
+    {
+      "date": "2026-11-27T23:31:52+00:00",
+      "text": "Corona Borealis\n\nTonight's star story is Corona Borealis, the crown of Ariadne, a small half circle of stars.\n\nRead it, then close your eyes for three breaths. 🔮",
+      "pillar": "visual:constellation",
+      "format": "video",
+      "subject": "const:corona_borealis",
+      "product": null,
+      "community": null,
+      "thread_id": "18097521743503476",
+      "reply_id": null
     }
   ],
   "ghosts": [

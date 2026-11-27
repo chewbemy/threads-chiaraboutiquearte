@@ -1,5 +1,5 @@
 {
-  "counter": 48,
+  "counter": 49,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -487,6 +487,17 @@
       "community": "astrology",
       "thread_id": "18137226310680879",
       "reply_id": "18400914418204744"
+    },
+    {
+      "date": "2026-11-27T19:02:16+00:00",
+      "text": "I · The Magician\n\n⭐ Pull this card and breathe. Willpower, manifestation, skill.\n\nWritten in the stars, delivered to you. 💜",
+      "pillar": "visual:tarot",
+      "format": "video",
+      "subject": "tarot:the_magician",
+      "product": null,
+      "community": null,
+      "thread_id": "18386900608233316",
+      "reply_id": null
     }
   ],
   "ghosts": [

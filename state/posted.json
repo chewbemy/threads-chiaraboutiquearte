@@ -1,5 +1,5 @@
 {
-  "counter": 65,
+  "counter": 66,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -673,6 +673,17 @@
       "community": null,
       "thread_id": "18663984979011246",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-28T18:02:08+00:00",
+      "text": "Jupiter\n\n💜 Jupiter rules growth, luck, expansion. 🌟",
+      "pillar": "visual:planet",
+      "format": "video",
+      "subject": "planet:jupiter",
+      "product": "journal2027",
+      "community": "astrology",
+      "thread_id": "18118944677608985",
+      "reply_id": "18403299199206162"
     }
   ],
   "ghosts": [

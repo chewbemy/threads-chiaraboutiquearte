@@ -1,5 +1,5 @@
 {
-  "counter": 55,
+  "counter": 56,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -563,6 +563,17 @@
       "product": null,
       "community": null,
       "thread_id": "18097521743503476",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-28T12:02:35+00:00",
+      "text": "Waning Gibbous\n\n🔮 Under the Waning Gibbous, give your energy to sharing.\n\nHold onto this energy today.",
+      "pillar": "visual:moon",
+      "format": "video",
+      "subject": "moon:waning_gibbous",
+      "product": null,
+      "community": "manifestation",
+      "thread_id": "17957155872301502",
       "reply_id": null
     }
   ],

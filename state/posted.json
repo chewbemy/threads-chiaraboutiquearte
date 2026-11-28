@@ -1,5 +1,5 @@
 {
-  "counter": 59,
+  "counter": 60,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -608,6 +608,16 @@
       "community": null,
       "thread_id": "18091347386289909",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-28T14:32:09+00:00",
+      "text": "The third eye is a symbol, not something to force open. It points to the space between your brows, where your attention can rest with your eyes closed.\n\nTry three slow breaths with your focus there. No pictures needed. Just a soft place to look from. 🔮\n\nWhen you get that still, what is the first small thing you notice, and have you been stepping around it? 💫",
+      "pillar": "intuition",
+      "format": "question",
+      "product": "thirdeye",
+      "community": "meditation",
+      "thread_id": "18097752626187622",
+      "reply_id": "18669561619001528"
     }
   ],
   "ghosts": [
@@ -635,6 +645,11 @@
       "date": "2026-11-27T14:31:06+00:00",
       "text": "Which zodiac sign do you feel you're most like, and which one do you secretly wish you were? One line is plenty. 🌟",
       "thread_id": "18020469665748065"
+    },
+    {
+      "date": "2026-11-28T14:31:13+00:00",
+      "text": "What's one thing you're thankful for today that you almost didn't notice? A smell, a message, a quiet moment. One line is enough. ⭐",
+      "thread_id": "18137885068761122"
     }
   ],
   "started": "2026-11-23"

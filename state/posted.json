@@ -1,5 +1,5 @@
 {
-  "counter": 58,
+  "counter": 59,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -596,6 +596,17 @@
       "product": null,
       "community": "manifestation",
       "thread_id": "18135917845828787",
+      "reply_id": null
+    },
+    {
+      "date": "2026-11-28T14:02:18+00:00",
+      "text": "Mercury\n\nAffirmation for Mercury energy: “I honour my mind.”\n\nSend it to someone who needs the reminder. 💫 ⭐ 💜",
+      "pillar": "visual:planet",
+      "format": "video",
+      "subject": "planet:mercury",
+      "product": null,
+      "community": null,
+      "thread_id": "18091347386289909",
       "reply_id": null
     }
   ],

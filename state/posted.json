@@ -1,5 +1,5 @@
 {
-  "counter": 60,
+  "counter": 61,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -618,6 +618,17 @@
       "community": "meditation",
       "thread_id": "18097752626187622",
       "reply_id": "18669561619001528"
+    },
+    {
+      "date": "2026-11-28T15:03:20+00:00",
+      "text": "The Sun\n\nThree gifts of The Sun: identity, vitality, purpose. ✨ 🔮 💜",
+      "pillar": "visual:planet",
+      "format": "video",
+      "subject": "planet:sun",
+      "product": null,
+      "community": null,
+      "thread_id": "18118276841037649",
+      "reply_id": null
     }
   ],
   "ghosts": [

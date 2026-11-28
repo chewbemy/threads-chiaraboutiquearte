@@ -1,5 +1,5 @@
 {
-  "counter": 57,
+  "counter": 58,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -586,6 +586,17 @@
       "community": null,
       "thread_id": "18253467556313328",
       "reply_id": "18135143560836786"
+    },
+    {
+      "date": "2026-11-28T13:32:16+00:00",
+      "text": "V · The Hierophant\n\nWhen The Hierophant appears, it rarely whispers. It speaks of wisdom and guidance.\n\nKeep this one close.\n\n🔮🌟",
+      "pillar": "visual:tarot",
+      "format": "video",
+      "subject": "tarot:the_hierophant",
+      "product": null,
+      "community": "manifestation",
+      "thread_id": "18135917845828787",
+      "reply_id": null
     }
   ],
   "ghosts": [

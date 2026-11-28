@@ -1,5 +1,5 @@
 {
-  "counter": 62,
+  "counter": 63,
   "posts": [
     {
       "date": "2026-11-23T12:28:38+00:00",
@@ -640,6 +640,17 @@
       "community": "astrology",
       "thread_id": "17980116902936510",
       "reply_id": null
+    },
+    {
+      "date": "2026-11-28T16:32:05+00:00",
+      "text": "Pegasus\n\n💫 Look up tonight and find Pegasus, the winged horse, its great square marking autumn nights.\n\nWritten in the stars, delivered to you.",
+      "pillar": "visual:constellation",
+      "format": "video",
+      "subject": "const:pegasus",
+      "product": "journal2027",
+      "community": null,
+      "thread_id": "18116370548153930",
+      "reply_id": "18237028360323403"
     }
   ],
   "ghosts": [
